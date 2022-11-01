@@ -1,0 +1,48 @@
+:root {
+    --red: #eb3e32;
+  }
+header {
+    padding: 10px 0;
+}
+
+img{
+    height: auto;
+}
+.contact-phone p{
+    line-height: 14px;
+}
+.phoneNumber, .login{
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--red) !important;
+}
+
+.phoneNumber:hover{
+    color: var(--red) !important;
+    opacity: 0.7;
+}
+.login{
+    font-size: 14px;
+}
+.login:hover{
+    color: var(--red) !important;
+    opacity: 0.7;
+}
+.icon{
+    margin-right: 10px;
+}
+
+.theme-search{
+    width: 340px;
+    height: 42px;
+    border: 1px solid var(--red);
+    border-radius: 5px;
+}
+.theme-search input{
+    width: 100%;
+    outline-style: none;
+    padding-left: 10px;
+}
+.theme-search i {
+    padding-right: 10px;
+}

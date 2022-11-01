@@ -1,0 +1,13 @@
+.counter-item{
+    display: inline-block;
+    position: absolute;
+    background-color: var(--red);
+    width: 17px;
+    height: 17px;
+    border-radius: 17px;
+    color: #fff;
+    text-align: center;
+    line-height: 17px;
+    font-size: 10px;
+    /* top:px; */
+}

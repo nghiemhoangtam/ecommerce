@@ -1,0 +1,11 @@
+.main-slider .swiper-slide{
+    margin: 0 auto;
+    width: 1180px;
+    height: 400px;
+}
+.main-slider .swiper-slide img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 10px;
+}

@@ -1,0 +1,17 @@
+@import 'normalize.css';
+
+body{
+  font-size: 14px !important;
+  font-family: "Roboto", sans-serif !important;
+  color: #323c42;
+  overflow-x: hidden;
+}
+a,a:hover,a:visited{
+  color: #323c42 !important;
+  text-decoration: none !important;
+}
+
+@media (min-width: 1200px){
+.container {
+    min-width: 1200px !important;
+}}
