@@ -36,9 +36,9 @@ public class Order {
 	@Column(name="payment_method")
 	private boolean paymentMethod;
 	
-	@ManyToOne
-	@JoinColumn(name="cart_id",referencedColumnName = "id")
-	private Cart cart;
+//	@ManyToOne
+//	@JoinColumn(name="cart_id",referencedColumnName = "id")
+//	private Cart cart;
 
 	public Long getId() {
 		return id;
@@ -70,14 +70,6 @@ public class Order {
 
 	public void setPaymentMethod(boolean paymentMethod) {
 		this.paymentMethod = paymentMethod;
-	}
-
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
 	}
 	
 	

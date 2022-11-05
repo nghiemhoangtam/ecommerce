@@ -1,5 +1,6 @@
 package rookies.training.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,9 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,14 +35,18 @@ public class Cart {
 	@Column(name="quantity")
 	private Long quantity;
 	
-	@OneToOne(mappedBy = "cart")
+	@Column(name="shipping_fee")
+	private Long shippingFee;
+	
+	@Column(name="created_date")
+	private LocalDateTime createdDate;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id",referencedColumnName = "id")
 	private User user;
 	
-	@OneToMany(mappedBy = "cart")
-	private List<Order> listOrder;
-	
 //	@OneToMany(mappedBy = "cart")
-//	private List<CartProduct> listCartProduct;
+//	private List<Order> listOrder;
 	
 	@ManyToMany
 	private List<Product> listProduct;
@@ -67,13 +75,6 @@ public class Cart {
 		this.user = user;
 	}
 
-	public List<Order> getListOrder() {
-		return listOrder;
-	}
-
-	public void setListOrder(List<Order> listOrder) {
-		this.listOrder = listOrder;
-	}
 
 	public List<Product> getListProduct() {
 		return listProduct;

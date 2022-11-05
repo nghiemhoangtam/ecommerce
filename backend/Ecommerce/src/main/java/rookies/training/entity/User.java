@@ -1,12 +1,18 @@
 package rookies.training.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,6 +26,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "users")
 public class User {
+	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -30,8 +38,8 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	
-	@Column(name = "email")
-	private String name;
+	@Column(name = "email",unique = true)
+	private String email;
 	
 	@Column(name = "password")
 	private String password;
@@ -44,85 +52,22 @@ public class User {
 	private Wishlist wishlist;
 	
 	@ManyToOne
-	@JoinColumn(name="role_id")
+	@JoinColumn(name="role_id",referencedColumnName = "id")
 	private Role role;
 	
-	@OneToOne
-	@JoinColumn(name="cart_id",referencedColumnName = "id")
-	private Cart cart;
+	@OneToMany(mappedBy = "user", targetEntity = Rating.class)
+	private List<Cart> listCart;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
+	@OneToMany(mappedBy = "user",targetEntity = Rating.class)
+	private List<Rating> listRating=new ArrayList<>(); 
+	
+	public User(String firstName, String lastName, String email, String phone,String password, Role role) {
 		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
+		this.email = email;
+		this.phone = phone;
+		this.role = role;
 		this.password = password;
 	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public Wishlist getWishlist() {
-		return wishlist;
-	}
-
-	public void setWishlist(Wishlist wishlist) {
-		this.wishlist = wishlist;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
-	
-	
 	
 }

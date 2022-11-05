@@ -12,13 +12,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="Wishlists")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Wishlist {
@@ -28,12 +33,13 @@ public class Wishlist {
 	private Long id;
 	
 	@OneToMany
-	@JoinColumn(name="product_id")
+	@JoinColumn(name="product_id",referencedColumnName = "id")
 	private List<Product> listProduct;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "wishlist")
 	private User user;
-
+	
 	public Long getId() {
 		return id;
 	}

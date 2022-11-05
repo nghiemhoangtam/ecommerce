@@ -11,13 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.*;
 
 @Entity
 @Table(name="Categories")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Category {
@@ -29,33 +30,47 @@ public class Category {
 	
 	@Column(name="name")
 	private String name;
+
+	@Column(name="logo_url")
+	private String logoUrl;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "category")
 	private List<Product> listProduct;
-
-	public Long getId() {
-		return id;
+	
+	public Category(String name,String logoUrl) {
+		this.name = name;
+		this.logoUrl=logoUrl;
 	}
 
-	public void setId(Long id) {
+	public Category(Long id, String name) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
 		this.name = name;
 	}
 
-	public List<Product> getListProduct() {
-		return listProduct;
-	}
-
-	public void setListProduct(List<Product> listProduct) {
-		this.listProduct = listProduct;
-	}
+//	public Long getId() {
+//		return id;
+//	}
+//
+//	public void setId(Long id) {
+//		this.id = id;
+//	}
+//
+//	public String getName() {
+//		return name;
+//	}
+//
+//	public void setName(String name) {
+//		this.name = name;
+//	}
+//
+//	public List<Product> getListProduct() {
+//		return listProduct;
+//	}
+//
+//	public void setListProduct(List<Product> listProduct) {
+//		this.listProduct = listProduct;
+//	}
 	
 	
 	

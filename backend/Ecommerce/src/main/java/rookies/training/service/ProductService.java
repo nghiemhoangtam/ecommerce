@@ -2,18 +2,19 @@ package rookies.training.service;
 
 import java.util.List;
 
+import rookies.training.dto.ProductDTO;
 import rookies.training.entity.Product;
 
 public interface ProductService {
 	
-	public List<Product> getAllProduct();
+	public List<ProductDTO> getAllProduct();
 	
-	public Product getProductById(Long id);
+	public ProductDTO getProductById(Long id);
 	
-	public Product addProduct(Product product);
+	public ProductDTO createProduct(Product product);
 	
-	public Product updateProduct(Product product);
+	public ProductDTO updateProduct(Product product);
 	
-	public void removeProductById(Long id);
+	public void deleteProductById(Long id);
 	
 }
