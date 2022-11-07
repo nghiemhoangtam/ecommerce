@@ -74,21 +74,14 @@ li.nav-item:hover>a,li.nav-item:hover>i{
     position: absolute;
     background-color: rgb(179, 49, 49);
     top:200px;
-    /* lef */
     max-width: 1000px;
     max-height: 1000px;
 }
-/* .header-nav .nav-item .item-small>li{
-
-} */
-/* .nav-item:hover .item-small{
-    display: block;
-} */
 
 .menu-content{
     transform: perspective(600px) rotateX(-90deg);
     transform-origin: 0% 0%;
-    background-color: #fff;
+    position: relative;
     z-index: 99;
     transition: transform 0.5s ease, opacity 0.6s ease, max-height 0.6s step-end, max-width 0.6s step-end, padding 0.6s step-end;
 }
@@ -97,17 +90,18 @@ li.nav-item:hover>a,li.nav-item:hover>i{
     opacity: 1;
     z-index: 99;
     
+    
 }
 .menu-content ul{
-    z-index: 99;    
+    background-color: #fff;
+    width: 97%;  
 }
 .menu-content ul li{
     display: block;
-    width: 97%;
-    /* z-index: 99; */
 }
 .menu-content ul li:hover{
     background-color: #ffb416;
+    box-shadow: 0px 1px 24.57px 2.43px rgb(0 0 0 / 12%);
 }
 
 .menu-content ul li a{
@@ -125,7 +119,7 @@ li.nav-item:hover>a,li.nav-item:hover>i{
     background-size: 25px;
     background-position: center left;
     background-position-x: 8px;
-    /* background-color: transparent; */
+    background-color: transparent;
 }
 .menu-content ul li:hover a{
     color: #fff !important;

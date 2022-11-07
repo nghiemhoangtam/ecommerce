@@ -33,14 +33,18 @@ public class Category {
 
 	@Column(name="logo_url")
 	private String logoUrl;
-	
+
+	@Column(name="url")
+	private String url;
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "category")
 	private List<Product> listProduct;
 	
-	public Category(String name,String logoUrl) {
+	public Category(String name,String logoUrl,String url) {
 		this.name = name;
 		this.logoUrl=logoUrl;
+		this.url = url;
 	}
 
 	public Category(Long id, String name) {

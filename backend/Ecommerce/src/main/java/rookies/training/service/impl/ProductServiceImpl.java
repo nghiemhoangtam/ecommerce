@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rookies.training.dto.ProductDTO;
+import rookies.training.entity.Category;
 import rookies.training.entity.Product;
 import rookies.training.repository.CategoryRepository;
 import rookies.training.repository.ProductRepository;
@@ -49,10 +50,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductDTO updateProduct(Product product) {
+	public ProductDTO updateProduct(Long id,Product product) {
 		if (categoryRepository.findById(product.getCategory().getId()).isEmpty()){
 			categoryRepository.saveAndFlush(product.getCategory());
 		}
+		if (productRepository.findById(id).isEmpty())	return null;
 		product = productRepository.save(product);
 		ProductDTO productDTO=modelMapper.map(product,ProductDTO.class);
 		return productDTO;
@@ -63,5 +65,14 @@ public class ProductServiceImpl implements ProductService {
 		if (productRepository.findById(id).isPresent()) {
 			productRepository.deleteById(id);
 		}
+	}
+
+	@Override
+	public List<ProductDTO> getProductsByCategoryId(Long id) {
+		Category category=categoryRepository.findById(id).get();
+		if (category==null){
+			return null;
+		}
+		return category.getListProduct().stream().map((product -> modelMapper.map(product,ProductDTO.class))).collect(Collectors.toList());
 	}
 }

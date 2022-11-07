@@ -14,27 +14,31 @@ import rookies.training.dto.WishlistDTO;
 import rookies.training.service.WishlistService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/wishlists")
 public class WishlistController {
 	
 	@Autowired
 	WishlistService wishlistService;
 	
 	
-	@GetMapping("/wishlist/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity getWishlistById(@PathVariable Long id) {
 		WishlistDTO wishlistDTO=wishlistService.getWishlistById(id);
 		return ResponseEntity.ok(wishlistDTO);
 	}
 	
-	@PostMapping("/wishlist/{id}")
-	public ResponseEntity addProduct(@PathVariable Long id,@RequestParam Long productId) {
+	@PostMapping("/{id}/products/{productId}")
+	public ResponseEntity addProduct(@PathVariable Long id,@PathVariable Long productId) {
 		boolean isAdded = wishlistService.addProduct(id,productId);
 		return ResponseEntity.ok(isAdded);
 	}
 	
-	@DeleteMapping("/wishlist/{id}/product")
-	public ResponseEntity removeProductFromWishlist(@PathVariable("id") Long id,@RequestParam Long productId) {
+	@DeleteMapping("/{id}/products/{productId}")
+	public ResponseEntity removeProductFromWishlist(@PathVariable("id") Long id,@PathVariable Long productId) {
 		return ResponseEntity.ok(wishlistService.removeProductFromWishlist(id, productId));
+	}
+	@DeleteMapping("/{id}")
+	public ResponseEntity deleteWishlist(@PathVariable Long id){
+		return ResponseEntity.ok(wishlistService.deleteWishlistById(id));
 	}
 }

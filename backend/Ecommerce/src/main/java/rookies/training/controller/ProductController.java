@@ -14,27 +14,26 @@ import rookies.training.service.ProductService;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/products")
 public class ProductController {
 	@Autowired
 	private ModelMapper modelMapper;
 	@Autowired
 	private ProductService productService;
 
-	@GetMapping("/products")
+	@GetMapping("/")
 	public List<ProductDTO> getAllProducts(){
 		return productService.getAllProduct();
 	}
 	
-	@GetMapping("/product/{id}")
+	@GetMapping("/{id}")
 	public ProductDTO getProduct(@PathVariable("id") Long id){
 //		Product product = productService.getProductById(id);
 //		ProductDTO productDTO=modelMapper.map(product,ProductDTO.class);
 //		System.out.println(product.getBrand());
 		return productService.getProductById(id);
 	}
-	
-	@PostMapping("/product")
+
 	public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
 		Product product=modelMapper.map(productDTO,Product.class);
 		productService.createProduct(product);
@@ -42,16 +41,21 @@ public class ProductController {
 		return productDTO;
 	}
 
-	@PutMapping("/product")
-	public ProductDTO updateProduct(@RequestBody ProductDTO productDTO){
+	@PutMapping("/{id}")
+	public ProductDTO updateProduct(@PathVariable Long id,@RequestBody ProductDTO productDTO){
 		Product product=modelMapper.map(productDTO,Product.class);
-		return productService.updateProduct(product);
+		return productService.updateProduct(id,product);
 	}
 
-	@DeleteMapping("/product/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity deleteProductById(@PathVariable("id") Long id){
 		productService.deleteProductById(id);
 		return ResponseEntity.ok("Delete successfully");
 	}
+
+//	@GetMapping("/group-products")
+//	public ResponseEntity getProductsByCategory(@RequestParam("categoryId") Long categoryId){
+//		return ResponseEntity.ok(productService.getProductsByCategoryId(categoryId));
+//	}
 	
 }

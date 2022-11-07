@@ -2,7 +2,18 @@ import logo from "../../assets/img/logo.png";
 import styles from "./index.module.css";
 import Cart from './Cart'
 import { Link } from "react-router-dom";
+import { UserContext } from "../../App";
+import { useContext, useState } from "react";
+
+
 function Header() {
+  const userContext = useContext(UserContext);
+  let isLogin=(userContext[0]!=null);
+  let name=(isLogin)?(JSON.parse(userContext[0])?.name):null;
+  function handleLogout(){
+    localStorage.clear();
+    userContext[1](null);
+  }
   return (
     <header>
       <div className="container p-0">
@@ -41,8 +52,11 @@ function Header() {
               </g>
             </svg>
               <div className="ms-2">
-                <p className="m-0">Tài khoản</p>
-                <Link className={styles.login} to="/account">Đăng nhập</Link>
+                <p className="m-0">{(isLogin)?name:"Tài khoản"}</p>
+                {(isLogin)?
+                  <Link className={styles.login} to="/" onClick={handleLogout}>Thoát</Link>:
+                  <Link className={styles.login} to="/account">Đăng nhập</Link>
+                }
               </div>
             </div>
           </div>

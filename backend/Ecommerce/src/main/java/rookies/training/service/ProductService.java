@@ -13,8 +13,10 @@ public interface ProductService {
 	
 	public ProductDTO createProduct(Product product);
 	
-	public ProductDTO updateProduct(Product product);
+	public ProductDTO updateProduct(Long id,Product product);
 	
 	public void deleteProductById(Long id);
+
+	public List<ProductDTO> getProductsByCategoryId(Long id);
 	
 }

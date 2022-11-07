@@ -15,7 +15,7 @@ public interface WishlistService {
 	
 	public Wishlist updateWishlist(Wishlist wishlist);
 	
-	public void deleteWishlistById(Long id);
+	public String deleteWishlistById(Long id);
 
 	public boolean addProduct(Long id, Long productId);
 	

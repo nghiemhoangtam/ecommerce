@@ -59,7 +59,7 @@ public class RatingServiceImpl implements RatingService {
 	}
 
 	@Override
-	public boolean updateRating(RatingDTO ratingDTO) {
+	public boolean updateRating(Long id,RatingDTO ratingDTO) {
 		User user=userRepository.findById(ratingDTO.getUserId()).get();
 		Product product=productRepository.findById(ratingDTO.getProductId()).get();
 		
@@ -77,6 +77,13 @@ public class RatingServiceImpl implements RatingService {
 		rating.setScore(ratingDTO.getScore());
 		ratingRepository.save(rating);
 		return true;
+	}
+
+	@Override
+	public List<RatingDTO> getRatingsByUser(Long userId) {
+		User user=userRepository.findById(userId).get();
+		if (user==null)	return null;
+		return user.getListRating().stream().map((rating)->(modelMapper.map(rating,RatingDTO.class))).collect(Collectors.toList());
 	}
 
 }

@@ -17,18 +17,18 @@ import rookies.training.service.RoleService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/roles")
 public class RoleController {
 
     @Autowired
     RoleService roleService;
 
-    @GetMapping("/roles")
+    @GetMapping("/")
     public List<RoleDTO> getAllRoles(){
         return roleService.getAllRoles();
     }
     
-    @PostMapping("/role")
+    @PostMapping("/")
     public RoleDTO createRole(RoleDTO roleDTO) {
     	return roleService.createRole(roleDTO);
     }
@@ -38,7 +38,7 @@ public class RoleController {
     	return roleService.updateRole(id,roleDTO);
     }
     
-    @DeleteMapping("/role/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteRoleById(@PathVariable("id") Long id) {
     	boolean isDeleted=roleService.deleteRoleById(id);
     	if (!isDeleted) {

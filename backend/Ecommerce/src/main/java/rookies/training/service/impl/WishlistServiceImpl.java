@@ -40,8 +40,13 @@ public class WishlistServiceImpl implements WishlistService{
 	}
 
 	@Override
-	public void deleteWishlistById(Long id) {
+	public String deleteWishlistById(Long id) {
+		Wishlist wishlist=wishlistReposiroty.findById(id).get();
+		if (wishlist==null){
+			return "this wishlist is not exist";
+		}
 		wishlistReposiroty.deleteById(id);
+		return "this wishlist was deleted";
 	}
 
 	@Override

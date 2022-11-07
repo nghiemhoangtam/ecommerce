@@ -10,5 +10,7 @@ public interface RatingService {
 	
 	public boolean createRating(RatingDTO ratingDTO);
 	
-	public boolean updateRating(RatingDTO ratingDTO);
+	public boolean updateRating(Long id,RatingDTO ratingDTO);
+
+	List<RatingDTO> getRatingsByUser(Long userId);
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import rookies.training.dto.CategoryDTO;
+import rookies.training.dto.ProductDTO;
 import rookies.training.entity.Category;
 import rookies.training.repository.CategoryRepository;
 import rookies.training.service.CategoryService;
@@ -43,12 +44,14 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public String updateCategory(@RequestBody Category category) {
-		Category category2=categoryRepository.findById(category.getId()).get();
+	public String updateCategory(Long id,Category category) {
+		Category category2=categoryRepository.findById(id).get();
+		if (category2==null)	return "category is not exist";
 		category2.setName(category.getName());
+		category2.setUrl(category.getUrl());
+		category2.setUrl(category.getLogoUrl());
 		categoryRepository.saveAndFlush(category2);
 		CategoryDTO res= modelMapper.map(category,CategoryDTO.class);
-		System.out.println(category.getId()+category.getName()+"|||---|");
 		return "success";
 	}
 
@@ -57,4 +60,10 @@ public class CategoryServiceImpl implements CategoryService{
 		categoryRepository.deleteById(id);
 	}
 
+	@Override
+	public List<ProductDTO> getProductsByCategory(Long id) {
+		Category category=categoryRepository.findById(id).get();
+		if (category==null)	return null;
+		return category.getListProduct().stream().map((product)->(modelMapper.map(product,ProductDTO.class))).collect(Collectors.toList());
+	}
 }

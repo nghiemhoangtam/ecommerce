@@ -14,17 +14,17 @@ import rookies.training.entity.User;
 import rookies.training.service.UserService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
 	@Autowired
 	UserService userService;
 	
-	@GetMapping("/users")
+	@GetMapping
 	public List<UserDTO> getAllUser(){
 		return userService.getAllUsers();
 	}
 	
-	@GetMapping("/user/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity getUserById(@PathVariable("id") Long id) {
 		UserDTO userDTO= userService.getUserById(id);
 		if (userDTO==null) {
@@ -33,7 +33,7 @@ public class UserController {
 		return ResponseEntity.ok(userDTO);
 	}
 //	
-	@PostMapping("/user")
+	@PostMapping
 	public ResponseEntity createUser(@RequestBody RegisterDTO registerDTO){
 		UserDTO userDTO= userService.createUser(registerDTO);
 		if (userDTO==null) {
@@ -42,8 +42,8 @@ public class UserController {
 		return ResponseEntity.ok(userDTO);
 	}
 
-	@PutMapping("/user")
-	public ResponseEntity updateUser(@RequestBody UserDTO userDTO){
+	@PutMapping("/{id}")
+	public ResponseEntity updateUser(@PathVariable Long id,@RequestBody UserDTO userDTO){
 		UserDTO userDTOResult= userService.updateUser(userDTO);
 		if (userDTOResult==null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User is not exist");
@@ -51,7 +51,7 @@ public class UserController {
 		return ResponseEntity.ok(userDTOResult);
 	}
 	
-	@DeleteMapping("/user/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity deleteUser(@PathVariable Long id) {
 		boolean isDeleted= userService.deleteUserById(id);
 		return ResponseEntity.ok(isDeleted);

@@ -1,7 +1,25 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import CategoryItem from './CategoryItem';
 import styles from './index.module.css'
 
 function HeaderNav(){
+    const [listCategories,setListCategories]=useState([]);
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/categories")
+        .then((response)=>{
+            console.log(response);
+            setListCategories(response.data);
+        })
+        .catch((response)=>{
+            console.log(response);
+        })
+        return () => {
+            
+        };
+    },[]);
+    
     return (
         <nav class={styles["header-nav-main"]}>
             <div className="container d-flex align-items-center h-100">
@@ -11,70 +29,8 @@ function HeaderNav(){
                     </div>
                     <div className={styles["menu-content"]}>
                         <ul className='p-0'>
-                            <li className='nav-item'>
-                                <a href="" className="lazyload" title='Máy ảnh' style={{backgroundImage: `url("/images/icons/camera.png")`}}>
-                                    Máy ảnh
-                                    <i className="fa fa-angle-right"></i>
-                                </a>
-                            </li>
-                            <li className='nav-item'>
-                                <a href="" className="lazyload" title='Máy chơi game' style={{backgroundImage: `url("/images/icons/gaming.png")`}}>
-                                    Máy chơi game
-                                    <i className="fa fa-angle-right"></i>
-                                </a>
-                                
-                            </li>
-                            <li className='nav-item'>
-                                <a href="" className="lazyload" title='Loa để bàn' style={{backgroundImage: `url("/images/icons/speaker.png")`}}>
-                                    Loa để bàn
-                                    <i className="fa fa-angle-right"></i>
-                                </a>
-                                
-                            </li>
-                            <li className='nav-item'>
-                                <a href="" className="lazyload" title='Tai nghe' style={{backgroundImage: `url("/images/icons/headphone.png")`}}>
-                                    Tai nghe
-                                    <i className="fa fa-angle-right"></i>
-                                </a>
-                                
-                            </li>
-                            <li className='nav-item'>
-                                <a href="" className="lazyload" title='Smartwatch' style={{backgroundImage: `url("/images/icons/smartwatch.png")`}}>
-                                    Smartwatch
-                                    <i className="fa fa-angle-right"></i>
-                                </a>
-                                
-                            </li>
-                            <li className='nav-item'>
-                                <a href="" className="lazyload" title='Chuột máy tính' style={{backgroundImage: `url("/images/icons/mouse.png")`}}>
-                                    Chuột máy tính
-                                    <i className="fa fa-angle-right"></i>
-                                </a>  
-                            </li>
-                            <li className='nav-item'>
-                                <a href="" className="lazyload" title='Bàn phím' style={{backgroundImage: `url("/images/icons/keyboard.png")`}}>
-                                    Bàn phím
-                                    <i className="fa fa-angle-right"></i>
-                                </a>  
-                            </li>
-                            <li className='nav-item'>
-                                <a href="" className="lazyload" title='Laptop' style={{backgroundImage: `url("/images/icons/laptop.png")`}}>
-                                    Laptop
-                                    <i className="fa fa-angle-right"></i>
-                                </a>  
-                            </li>
-                            <li className='nav-item'>
-                                <a href="" className="lazyload" title='Máy tính bảng' style={{backgroundImage: `url("/images/icons/tablet.png")`}}>
-                                    Máy tính bảng
-                                    <i className="fa fa-angle-right"></i>
-                                </a>  
-                            </li>
-                            <li className='nav-item'>
-                                <a href="" className="lazyload ps-2" title='Máy tính bảng' >
-                                    <span className='d-inline-block ms-1 me-3'><i className="fa fa-plus-circle d-inline"></i></span>
-                                    <span>Xem thêm</span>
-                                </a>  
-                            </li>
+                            {listCategories.map((category)=>(<li><CategoryItem category={category} /></li>))}
+                            {console.log(listCategories)}
                         </ul>
                     </div>
                 </div>
