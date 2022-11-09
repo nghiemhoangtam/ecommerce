@@ -1,0 +1,13 @@
+.home-link:hover{
+    color:#ffb416;
+}
+
+.title-block-page h1{
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 0 15px;
+    border-bottom: solid 2px #eb3e32;
+    padding-bottom: 20px;
+    line-height: 1.4;
+}

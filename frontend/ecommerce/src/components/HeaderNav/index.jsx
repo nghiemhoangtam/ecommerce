@@ -1,27 +1,13 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+
 import { Link } from 'react-router-dom';
 import CategoryItem from './CategoryItem';
 import styles from './index.module.css'
 
-function HeaderNav(){
-    const [listCategories,setListCategories]=useState([]);
-    useEffect(() => {
-        axios.get("http://localhost:8080/api/categories")
-        .then((response)=>{
-            console.log(response);
-            setListCategories(response.data);
-        })
-        .catch((response)=>{
-            console.log(response);
-        })
-        return () => {
-            
-        };
-    },[]);
+function HeaderNav({listCategories}){
+    
     
     return (
-        <nav class={styles["header-nav-main"]}>
+        <nav className={styles["header-nav-main"]}>
             <div className="container d-flex align-items-center h-100">
                 <div className={styles["mega-menu"]}>
                     <div className={`${styles["menu-title"]} h-100`}>
@@ -29,8 +15,8 @@ function HeaderNav(){
                     </div>
                     <div className={styles["menu-content"]}>
                         <ul className='p-0'>
-                            {listCategories.map((category)=>(<li><CategoryItem category={category} /></li>))}
-                            {console.log(listCategories)}
+                            {listCategories.map((category)=>(<li key={category.id}><CategoryItem category={category} /></li>))}
+                            {/* {console.log(listCategories)} */}
                         </ul>
                     </div>
                 </div>

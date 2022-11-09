@@ -11,7 +11,9 @@ import Career from './pages/Career';
 import Contact from './pages/Contact';
 import Product from './pages/Product';
 import Logout from './pages/Logout';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import Wishlist from './pages/Wishlist';
 
 
 export const UserContext = createContext();
@@ -20,12 +22,24 @@ export const UserContext = createContext();
 function App() {
   
   const [user,setUser]=useState(localStorage.getItem("user"));
+  const [listCategories,setListCategories]=useState([]);
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/categories")
+        .then((response)=>{
+            setListCategories(response.data);
+        })
+        .catch((response)=>{
+            console.log(response);
+        })
+        return () => {       
+        };
+    },[]);
   
   return (
     <div className="App">
       <UserContext.Provider value={[user,setUser]}>
         <Header />
-        <HeaderNav />
+        <HeaderNav listCategories={listCategories}/>
         <div style={{minHeight:"600px"}}>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -35,7 +49,12 @@ function App() {
             <Route path="/career" element={<Career />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/product" element={<Product />} />
+            <Route path="/wishlist" element={<Wishlist/>} />
             <Route path="/logout" element={<Logout />} />
+            
+            {listCategories.map((category)=> {
+              return <Route key={category.id} path={category.url} element={<Product categoryId={category.id} />}></Route>
+            })}
           </Routes>
         </div>
         <Footer />
