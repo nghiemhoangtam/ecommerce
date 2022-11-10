@@ -53,6 +53,14 @@ public class LoadDB {
 			Category category9=new Category("Máy tính bảng","https://vmart.exdomain.net/image/catalog/vmart/danh_muc_sp/icon13.png","/tablet");
 			Category category10=new Category("Điện thoại","https://vmart.exdomain.net/image/catalog/vmart/danh_muc_sp/icon18.png","/dien-thoai");
 
+			Product camera1=new Product("Máy ảnh Sony Alpha ILCE-6400/ A6400 Body/ Đen",true, 19490000L,"https://kyma.vn/thumb/images/may-anh-sony-alpha-ilce-6400.webp","Sony",category1);
+			Product camera2=new Product("Máy ảnh Fujifilm X-T5 Body/ Đen",true, 43490000L,"https://kyma.vn/thumb/images/product/may-anh-fujifilm-x-t5.webp","Fujifilm",category1);
+			Product camera3=new Product("Máy ảnh Sony Cybershot DSC-ZV-1/ Đen",true, 16490000L,"https://kyma.vn/thumb/images/product/may-anh-sony-zv1(1).webp","Sony",category1);
+			Product camera4=new Product("Máy ảnh Canon EOS R7 Body",true, 48500000L,"https://kyma.vn/thumb/images/product/may-anh-canon-eos-r7.webp","Canon",category1);
+
+			Product console1=new Product("Sony PlayStation Vita",true, 1300000L,"https://p-vn.ipricegroup.com/uploaded_e4de3ddbc8fa73dced8a745deae2fbe9.jpg","Sony",category2);
+			Product console2=new Product("Sony PlayStation 4",true, 6300000L,"https://p-vn.ipricegroup.com/uploaded_fe3e392e6ceb0c22f545d8151aef61e3.jpg","Sony",category2);
+
 			Product smartwatch1=new Product("Đồng Hồ Thông Minh Apple Watch Nike+ Series 5 GPS",true, 15990000L,"https://vmart.exdomain.net/image/cache/catalog/evo/apple-watch-228x228.jpg","Apple",category5);
 			Product smartwatch2=new Product("Đồng Hồ Thông Minh Apple Watch Nike+ Series 3 GPS",true,9900000L,"https://vmart.exdomain.net/image/cache/catalog/evo/81800fba5a63eb3209a2cc18125fa7c7-455cda92-c3a6-40f6-b6a5-b78ebee91fe8-228x228.jpg","Apple",category5);
 			Product smartwatch3=new Product("Apple Watch SE 40mm (4G) Viền Nhôm - Dây Vải Chính",true,9900000L,"https://vmart.exdomain.net/image/cache/catalog/evo/3bb5a68ad7cb4eb0194b83ed08fa8c0c-228x228.jpg","Apple",category5);
@@ -92,6 +100,12 @@ public class LoadDB {
 			Product mouse20=new Product("Chuột Logitech M190 Wireless",true,270000L,"https://vmart.exdomain.net/image/cache/catalog/gearvn/gearvn-chuot-logitech-m190-wireless-6666_900e6c5b4bbc4ef89ac21e00d4d3d67f-228x228.png","Logitech",category6);
 			Product mouse21=new Product("Chuột Logitech MX Anywhere 2S",true,390000L,"https://vmart.exdomain.net/image/cache/catalog/gearvn/anywhere-2s-gearvn-228x228.jpg","Logitech",category6);
 			Product mouse22=new Product("Chuột Logitech MX Anywhere 3 for Mac",true,1790000L,"https://vmart.exdomain.net/image/cache/catalog/gearvn/logitech-mx-anywhere3-mac-b_ac5812aabc504d4a983eb904e2bcdf83-228x228.jpg","Logitech",category6);
+
+			Product tablet1=new Product("Apple iPad Air 10.9 2020 Wi-Fi 64GB Chính Hãng",true,21500000L,"https://vmart.exdomain.net/image/cache/catalog/evo/ipad-air-2020-blue-228x228.jpg","Apple",category9);
+			Product tablet2=new Product("Apple iPad Pro 11 2020 4G 128GB Chính Hãng Apple",true,21500000L,"https://vmart.exdomain.net/image/cache/catalog/evo/ipad-pro-11-select-cell-spacegray-202003-removebg-preview-png-5edee7da-e60d-45b2-a5e0-c478b599d538-228x228.jpg","Apple",category9);
+			Product tablet3=new Product("Apple iPad Pro 11 2020 Wi-Fi 128GB Chính Hãng",true,21500000L,"https://vmart.exdomain.net/image/cache/catalog/evo/ipad-pro-11-select-cell-silver-202003-removebg-preview-png-228x228.jpg","Apple",category9);
+
+
 			Role role1=roleRepository.save(new Role(3L,"CUSTOMER"));
 			BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
 			User user1=new User("Nguyen Van","A","nguyenvana@gmail.com","01234556",bCryptPasswordEncoder.encode("12345"),role1);
@@ -116,6 +130,13 @@ public class LoadDB {
 			categoryRepository.save(category9);
 			categoryRepository.save(category10);
 
+			productService.createProduct(camera1);
+			productService.createProduct(camera2);
+			productService.createProduct(camera3);
+			productService.createProduct(camera4);
+
+			productService.createProduct(console1);
+			productService.createProduct(console2);
 
 			productService.createProduct(smartwatch1);
 			productService.createProduct(smartwatch2);
@@ -156,7 +177,11 @@ public class LoadDB {
 			productService.createProduct(mouse20);
 			productService.createProduct(mouse21);
 			productService.createProduct(mouse22);
-			
+
+			productService.createProduct(tablet1);
+			productService.createProduct(tablet2);
+			productService.createProduct(tablet3);
+
 			
 			userRepository.save(user1);
 			userRepository.save(user2);

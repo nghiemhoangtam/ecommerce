@@ -13,4 +13,5 @@ public class CategoryDTO {
     private String logoUrl;
 
     private String url;
+
 }

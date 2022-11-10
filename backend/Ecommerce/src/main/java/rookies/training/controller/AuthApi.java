@@ -53,7 +53,7 @@ public class AuthApi {
 			CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 			String accessToken=jwtTokenUtil.generateAccessToken(userDetails.getUser());
 			User user=userDetails.getUser();
-			AuthResponse response=new AuthResponse(user.getEmail(),accessToken,user.getFirstName()+" "+user.getLastName());
+			AuthResponse response=new AuthResponse(user.getId(),user.getEmail(),accessToken,user.getFirstName()+" "+user.getLastName());
 			return ResponseEntity.ok(response);
 		} catch (BadCredentialsException e) {
 			System.out.println("bad");

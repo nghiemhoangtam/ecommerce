@@ -14,7 +14,7 @@ import rookies.training.entity.User;
 import rookies.training.service.UserService;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/admin/api/users")
 public class UserController {
 	@Autowired
 	UserService userService;

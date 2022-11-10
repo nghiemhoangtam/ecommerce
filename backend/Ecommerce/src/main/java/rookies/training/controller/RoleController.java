@@ -17,7 +17,7 @@ import rookies.training.service.RoleService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/roles")
+@RequestMapping("/admin/api/roles")
 public class RoleController {
 
     @Autowired

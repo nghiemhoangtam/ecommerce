@@ -2,23 +2,28 @@ package rookies.training.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.parameters.P;
+import org.springframework.web.bind.annotation.*;
 
+import rookies.training.dto.ProductDTO;
+import rookies.training.dto.UserProductDTO;
 import rookies.training.dto.WishlistDTO;
+import rookies.training.entity.User;
+import rookies.training.repository.UserRepository;
 import rookies.training.service.WishlistService;
 
+import java.util.List;
+
+@CrossOrigin
 @RestController
 @RequestMapping("/api/wishlists")
 public class WishlistController {
 	
 	@Autowired
 	WishlistService wishlistService;
+
+	@Autowired
+	UserRepository userRepository;
 	
 	
 	@GetMapping("/{id}")
@@ -26,10 +31,17 @@ public class WishlistController {
 		WishlistDTO wishlistDTO=wishlistService.getWishlistById(id);
 		return ResponseEntity.ok(wishlistDTO);
 	}
+
+	@GetMapping("/users/{userId}/products")
+	public ResponseEntity getProductsFromWishlistByUserId(@PathVariable Long userId){
+		List<ProductDTO> listProducts = wishlistService.getAllProductsFromWishlistByUserId(userId);
+		return ResponseEntity.ok(listProducts);
+	}
 	
-	@PostMapping("/{id}/products/{productId}")
-	public ResponseEntity addProduct(@PathVariable Long id,@PathVariable Long productId) {
-		boolean isAdded = wishlistService.addProduct(id,productId);
+	@PostMapping
+	public ResponseEntity addProduct(@RequestBody UserProductDTO userProductDTO) {
+		User user=userRepository.findById(userProductDTO.getUserId()).get();
+		boolean isAdded = wishlistService.addProduct(user.getWishlist().getId(),userProductDTO.getProductId());
 		return ResponseEntity.ok(isAdded);
 	}
 	

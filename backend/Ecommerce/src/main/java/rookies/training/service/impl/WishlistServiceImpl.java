@@ -1,15 +1,19 @@
 package rookies.training.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rookies.training.dto.ProductDTO;
 import rookies.training.dto.WishlistDTO;
 import rookies.training.entity.Product;
+import rookies.training.entity.User;
 import rookies.training.entity.Wishlist;
 import rookies.training.repository.ProductRepository;
+import rookies.training.repository.UserRepository;
 import rookies.training.repository.WishlistReposiroty;
 import rookies.training.service.WishlistService;
 
@@ -18,13 +22,23 @@ public class WishlistServiceImpl implements WishlistService{
 
 	@Autowired
 	WishlistReposiroty wishlistReposiroty;
+
+	@Autowired
+	UserRepository userRepository;
 	
 	@Autowired
 	ProductRepository productRepository;
 	
 	@Autowired 
 	ModelMapper modelMapper;
-	
+
+	@Override
+	public List<ProductDTO> getAllProductsFromWishlistByUserId(Long id) {
+		User user=userRepository.findById(id).get();
+		if (user==null)	return null;
+		return user.getWishlist().getListProduct().stream().map((product -> modelMapper.map(product, ProductDTO.class))).collect(Collectors.toList());
+	}
+
 	@Override
 	public WishlistDTO getWishlistById(Long id) {
 		

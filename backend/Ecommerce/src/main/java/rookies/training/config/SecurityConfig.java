@@ -17,9 +17,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import org.springframework.web.cors.CorsConfiguration;
 import rookies.training.repository.UserRepository;
 import rookies.training.security.JwtTokenFilter;
 import rookies.training.service.impl.UserDetailsServiceImpl;
+
+import java.util.List;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -53,7 +56,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
+		CorsConfiguration config = new CorsConfiguration();
+
+		config.setAllowCredentials(true);
+		config.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type", "token"));
+		config.addAllowedMethod("*");
+		config.setAllowedOrigins(List.of("http://localhost:3000"));
+
+		http.csrf().disable().cors().configurationSource(request -> config);
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		http.exceptionHandling().authenticationEntryPoint(
@@ -65,6 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeHttpRequests()
 				.antMatchers("/login","/register","/swagger-ui/**","/v3/**").permitAll()
 				.antMatchers(HttpMethod.GET,"/api/**").permitAll()
+				.antMatchers("/api/**").authenticated()
 				.anyRequest().authenticated();
 		http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 	}

@@ -53,9 +53,6 @@ public class ProductController {
 		return ResponseEntity.ok("Delete successfully");
 	}
 
-//	@GetMapping("/group-products")
-//	public ResponseEntity getProductsByCategory(@RequestParam("categoryId") Long categoryId){
-//		return ResponseEntity.ok(productService.getProductsByCategoryId(categoryId));
-//	}
+
 	
 }
